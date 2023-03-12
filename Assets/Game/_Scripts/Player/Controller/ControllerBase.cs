@@ -63,7 +63,7 @@ namespace Game._Scripts.Player.Controller
         [SerializeField] private RecoilHandler recoilHandler;
         private void Awake()
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
         }
 
         protected void Update()
@@ -243,8 +243,8 @@ namespace Game._Scripts.Player.Controller
             weaponSmoothTurnHorizontalValue += playerCamera.verticalAxis;
             weaponSmoothTurnHorizontalValue = Mathf.Lerp(weaponSmoothTurnHorizontalValue, 0, 15 *Time.deltaTime);
             
-            float horizontalSwing = currentCurveData.HorizontalCurve.Evaluate(weaponSwingTimer) * currentCurveData.HorizontalDistance + recoilHandler.currentWeaponRecoil.x + weaponSmoothTurnHorizontalValue ;
-            float verticalSwing = currentCurveData.VerticalCurve.Evaluate(weaponSwingTimer) * currentCurveData.VerticalDistance + recoilHandler.currentWeaponRecoil.y + weaponSmoothTurnVerticalValue;
+            float horizontalSwing = currentCurveData.HorizontalCurve.Evaluate(weaponSwingTimer) * currentCurveData.HorizontalDistance + recoilHandler.currentWeaponRecoil.x - weaponSmoothTurnHorizontalValue ;
+            float verticalSwing = currentCurveData.VerticalCurve.Evaluate(weaponSwingTimer) * currentCurveData.VerticalDistance + recoilHandler.currentWeaponRecoil.y - weaponSmoothTurnVerticalValue;
             Vector3 targetPosition = new Vector3(horizontalSwing,verticalSwing,120);
             weaponTargetTransform.localPosition = Vector3.Lerp(  weaponTargetTransform.localPosition,targetPosition,10 * Time.deltaTime);
         }

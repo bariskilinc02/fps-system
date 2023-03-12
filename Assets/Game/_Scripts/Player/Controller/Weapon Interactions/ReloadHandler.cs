@@ -6,13 +6,24 @@ using UnityEngine;
 
 public class ReloadHandler : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
+     [SerializeField] private PlayerManager playerManager;
+     
+     private Animator animator;
+     private FullBodyBipedIK fullBodyBipedIK;
+     private BipedIK bipedIK;
+    private WeaponHandler weaponHandler;
     
-    [SerializeField] private FullBodyBipedIK fullBodyBipedIK;
-    [SerializeField] private BipedIK bipedIK;
-
     [SerializeField] private AnimatorOverrideController overrideController;
-    [SerializeField] private WeaponHandler weaponHandler;
+   
+
+    private void Awake()
+    {
+        animator = playerManager.animator;
+        fullBodyBipedIK = playerManager.fullBodyBipedIK;
+        bipedIK = playerManager.bipedIK;
+        weaponHandler = playerManager.weaponHandler;
+    }
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))

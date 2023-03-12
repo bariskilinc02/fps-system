@@ -6,29 +6,38 @@ using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour
 {
-    [SerializeField] private FullBodyBipedIK fullBodyBipedIK;
+    [SerializeField] private PlayerManager playerManager;
+
+    private FullBodyBipedIK fullBodyBipedIK;
+    private Weapons weapons;
+    private Animator animator;
+    private SlideHandler slideHandler;
+    private RecoilHandler RecoilHandler;
     
     [SerializeField] private Transform rightHandIKTarget;
-    [SerializeField] private Weapons weapons;
-    [SerializeField] private Animator animator;
+    
     public string testId;
 
     public bool onAim;
     public bool onSlide;
     public float aimValue;
- 
-
+    
     public Weapon currentWeapon;
 
     public bool active;
     
-
-    public RecoilHandler RecoilHandler;
-
     public float fireTime;
 
-    public SlideHandler slideHandler;
+   
 
+    private void Awake()
+    {
+        fullBodyBipedIK = playerManager.fullBodyBipedIK;
+        weapons = playerManager.weapons;
+        animator = playerManager.animator;
+        RecoilHandler = playerManager.recoilHandler;
+        slideHandler = playerManager.slideHandler;
+    }
 
     private void Start()
     {
@@ -55,11 +64,13 @@ public class WeaponHandler : MonoBehaviour
         }
         
         AimController();
-      
 
+        if (PlayerManager.Instance.playerProperties.OnUI) return;
+        
         Aim();
         if(onSlide) return;
         Fire();
+
     }
 
     private void LateUpdate()

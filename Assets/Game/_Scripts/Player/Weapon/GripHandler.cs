@@ -16,11 +16,27 @@ public class GripHandler : MonoBehaviour
 
     public void GetAllGripParts()
     {
+        gripParts.Clear();
         for (int i = 0; i < transform.childCount; i++)
         {
             gripParts.Add(transform.GetChild(i).GetComponent<GripPart>());
         }
 
+    }
+
+    public void CustomizeGripPart(int i)
+    {
+        for (int j = 0; j < gripParts.Count; j++)
+        {
+            if (j == i)
+            {
+                gripParts[j].gameObject.SetActive(true);
+            }
+            else
+            {
+                gripParts[j].gameObject.SetActive(false);
+            }
+        }
     }
 
     public GripPart GetCurrentGripPart()

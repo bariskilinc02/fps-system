@@ -32,6 +32,7 @@ public class Weapon : MonoBehaviour
         leftHandIKTarget = currentGrip.leftHandTarget.gameObject;
         
         sightHandler = GetComponentInChildren<SightHandler>();
+        sightHandler.GetAllSightParts();
         sightHandler.SetSightPart();
         
         rightHandAimPosition = rightHandAimPosition.With(y: sightHandler.GetAimPositionX());
