@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -55,6 +56,9 @@ namespace Game._Scripts.Player.Controller
         [SerializeField] private Transform weaponTargetTransform;
         private float weaponSwingTimer;
 
+        private float weaponSmoothTurnHorizontalValue;
+        private float weaponSmoothTurnVerticalValue;
+        private float rootAnimatorValue;
         [Header("Recoil")] 
         [SerializeField] private RecoilHandler recoilHandler;
         private void Awake()
@@ -174,7 +178,9 @@ namespace Game._Scripts.Player.Controller
         }
         private void ControlCrouchState()
         {
-            characterRootObject.localPosition = Vector3.Lerp(characterRootObject.localPosition, characterRootObject.localPosition.With(y: isCrouching ? -0.4f : 0f), movementSwitchSpeed * Time.deltaTime); ;
+            rootAnimatorValue = Mathf.Lerp(rootAnimatorValue,  isCrouching ? 1: 0, 5 *Time.deltaTime);
+            animator.SetFloat("root_crouch", rootAnimatorValue);
+            //characterRootObject.localPosition = Vector3.Lerp(characterRootObject.localPosition, characterRootObject.localPosition.With(y: isCrouching ? -0.4f : 0f), movementSwitchSpeed * Time.deltaTime); ;
         }
 
         #endregion
@@ -230,9 +236,15 @@ namespace Game._Scripts.Player.Controller
             {
                 weaponSwingTimer = 0;
             }
+
+            weaponSmoothTurnVerticalValue += playerCamera.horizontalAxis;
+            weaponSmoothTurnVerticalValue = Mathf.Lerp(weaponSmoothTurnVerticalValue, 0, 15 *Time.deltaTime);
             
-            float horizontalSwing = currentCurveData.HorizontalCurve.Evaluate(weaponSwingTimer) * currentCurveData.HorizontalDistance + recoilHandler.currentWeaponRecoil.x;
-            float verticalSwing = currentCurveData.VerticalCurve.Evaluate(weaponSwingTimer) * currentCurveData.VerticalDistance + recoilHandler.currentWeaponRecoil.y;
+            weaponSmoothTurnHorizontalValue += playerCamera.verticalAxis;
+            weaponSmoothTurnHorizontalValue = Mathf.Lerp(weaponSmoothTurnHorizontalValue, 0, 15 *Time.deltaTime);
+            
+            float horizontalSwing = currentCurveData.HorizontalCurve.Evaluate(weaponSwingTimer) * currentCurveData.HorizontalDistance + recoilHandler.currentWeaponRecoil.x + weaponSmoothTurnHorizontalValue ;
+            float verticalSwing = currentCurveData.VerticalCurve.Evaluate(weaponSwingTimer) * currentCurveData.VerticalDistance + recoilHandler.currentWeaponRecoil.y + weaponSmoothTurnVerticalValue;
             Vector3 targetPosition = new Vector3(horizontalSwing,verticalSwing,120);
             weaponTargetTransform.localPosition = Vector3.Lerp(  weaponTargetTransform.localPosition,targetPosition,10 * Time.deltaTime);
         }
@@ -313,7 +325,6 @@ namespace Game._Scripts.Player.Controller
             animator.SetFloat(inputX, currentVerticalInput);
             animator.SetFloat(inputY, currentHorizontalInput);
         }
-
-       
+        
     }
 }

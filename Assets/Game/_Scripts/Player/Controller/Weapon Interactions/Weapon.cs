@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    
     public string weaponId;
     [HideInInspector] public GameObject weaponGameObject;
     [HideInInspector] public GameObject leftHandIKTarget;

@@ -16,6 +16,9 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float verticalInput;
     [SerializeField] public float horizontalInput;
 
+    [SerializeField] public float verticalAxis;
+    [SerializeField] public float horizontalAxis;
+    
     public RecoilHandler recoilHandler;
 
     public float test;
@@ -39,6 +42,9 @@ public class PlayerCamera : MonoBehaviour
     {
         verticalInput += Input.GetAxis("Mouse X")  * xSensivity;
         horizontalInput += -Input.GetAxis("Mouse Y")  * xSensivity;
+
+        verticalAxis = Input.GetAxis("Mouse X");
+        horizontalAxis = Input.GetAxis("Mouse Y");
 
         horizontalInput = Mathf.Clamp(horizontalInput, -90,90);
 

@@ -38,7 +38,7 @@ public class WeaponHandler : MonoBehaviour
     private void Update()
     {
     
-        Debug.Log(weapons.transform.eulerAngles);
+      //  Debug.Log(weapons.transform.eulerAngles);
     
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -72,7 +72,7 @@ public class WeaponHandler : MonoBehaviour
 
     private void LateUpdate()
     {
-        slideHandler.SlideDownWeaponLateUpdate();
+       // slideHandler.SlideDownWeaponLateUpdate();
     }
 
     private void SetLeftHandIKTarget(string weaponId)
@@ -153,9 +153,9 @@ public class WeaponHandler : MonoBehaviour
     private IEnumerator ChangeWeapon_Routine(string id)
     {
         onSlide = true;
-        yield return slideHandler.SlideDownWeapon_RoutineTrial();
+        yield return slideHandler.SlideDownWeapon_RoutineLast();
         SetWeapon(id);
-        yield return slideHandler.SlideUpWeapon_Routine();
+        yield return slideHandler.SlideUpWeapon_RoutineLast();
         onSlide = false;
     }
    

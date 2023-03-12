@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using RootMotion.FinalIK;
@@ -19,7 +20,7 @@ public class SlideHandler : MonoBehaviour
     
     private Vector3 weaponRootRotation;
     private Vector3 currentWeaponRootRotation;
-    
+    [SerializeField] private Animator animator;
     [SerializeField] private BipedIK bipedIK;
     [SerializeField] private Transform rightHandBone;
     [SerializeField] private Transform rightShoulderBone;
@@ -28,6 +29,19 @@ public class SlideHandler : MonoBehaviour
 
     [SerializeField] private AnimationCurve SlideCurve;
     
+    //addditioa
+    public AimIK aimIK;
+    public FullBodyBipedIK fullBodyBipedIK;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            StartCoroutine(SlideDownWeapon_RoutineLast());
+        }
+     
+    }
+
     public void SlideDownWeapon()
     {
         StartCoroutine(SlideDownWeapon_RoutineTrial());
@@ -110,4 +124,39 @@ public class SlideHandler : MonoBehaviour
         weaponRootRotation = new Vector3(0,0,0);
         isSliding = false;
     }
+    
+    public IEnumerator SlideDownWeapon_RoutineLast()
+    {
+        bipedIK.enabled = false;
+        fullBodyBipedIK.enabled = false;
+
+        float time = 0;
+        float maxTime = 1;
+        while (time < maxTime)
+        {
+            animator.SetLayerWeight(6,time/ maxTime);
+            aimIK.solver.IKPositionWeight = Mathf.Lerp(1,0, time/ maxTime);
+            aimIK.solver.poleWeight = Mathf.Lerp(1,0, time/ maxTime);
+            time += Time.deltaTime;
+            yield return null;
+        }
+    }
+    
+    public IEnumerator SlideUpWeapon_RoutineLast()
+    {
+        float time = 0;
+        float maxTime = 1;
+        while (time < maxTime)
+        {
+            animator.SetLayerWeight(6,Mathf.Lerp(1,0, time/ maxTime));
+            aimIK.solver.IKPositionWeight = time/ maxTime;
+            aimIK.solver.poleWeight = time/ maxTime;
+            time += Time.deltaTime;
+            yield return null;
+        }
+     
+        bipedIK.enabled = true;
+        fullBodyBipedIK.enabled = true;
+    }
+
 }
