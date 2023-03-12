@@ -7,10 +7,10 @@ using UnityEngine;
 public class WeaponHandler : MonoBehaviour
 {
     [SerializeField] private FullBodyBipedIK fullBodyBipedIK;
-
-
+    
     [SerializeField] private Transform rightHandIKTarget;
     [SerializeField] private Weapons weapons;
+    [SerializeField] private Animator animator;
     public string testId;
 
     public bool onAim;
@@ -37,8 +37,12 @@ public class WeaponHandler : MonoBehaviour
 
     private void Update()
     {
-    
-      //  Debug.Log(weapons.transform.eulerAngles);
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SetGrip(currentWeapon.weaponId);
+        }
+        //Debug.Log(weapons.transform.eulerAngles);
     
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -49,19 +53,7 @@ public class WeaponHandler : MonoBehaviour
         {
             ChangeWeapon("Revolver");
         }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            
-            slideHandler.SlideDownWeapon();
-        }
         
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            slideHandler.SlideUpWeapon();
-        }
-
-  
         AimController();
       
 
@@ -77,13 +69,14 @@ public class WeaponHandler : MonoBehaviour
 
     private void SetLeftHandIKTarget(string weaponId)
     {
-        fullBodyBipedIK.solver.leftHandEffector.target = weapons.allWeapons.Find(x => x.weaponId == weaponId).leftHandIKTarget.transform;
+        fullBodyBipedIK.solver.leftHandEffector.target = weapons.allWeapons.Find(x => x.weaponId == weaponId).currentGrip.leftHandTarget;
     }
 
     public void SetWeapon(string weaponId)
     {
         currentWeapon = weapons.allWeapons.Find(x => x.weaponId == weaponId);
         currentWeapon.BuildWeapon();
+        animator.runtimeAnimatorController = currentWeapon.currentGrip.gridOverrider;
         weapons.ActivateWeaponWithId(weaponId);
         SetLeftHandIKTarget(weaponId);
 
@@ -158,5 +151,11 @@ public class WeaponHandler : MonoBehaviour
         yield return slideHandler.SlideUpWeapon_RoutineLast();
         onSlide = false;
     }
-   
+
+    public void SetGrip(string weapon)
+    {
+        SetWeapon(weapon);
+        currentWeapon.BuildWeapon();
+    }
+    
 }

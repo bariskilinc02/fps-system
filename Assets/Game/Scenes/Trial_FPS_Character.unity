@@ -11580,6 +11580,7 @@ MonoBehaviour:
   fullBodyBipedIK: {fileID: 760213151}
   rightHandIKTarget: {fileID: 1010104908}
   weapons: {fileID: 579603678}
+  animator: {fileID: 760213145}
   testId: scar
   onAim: 0
   onSlide: 0
@@ -11671,6 +11672,7 @@ MonoBehaviour:
   fullBodyBipedIK: {fileID: 760213151}
   bipedIK: {fileID: 760213152}
   overrideController: {fileID: 22100000, guid: c5e982f2299ef3c4e88fdfd0c4f7c0b7, type: 2}
+  weaponHandler: {fileID: 1825705625}
 --- !u!114 &1825705629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11935,7 +11937,9 @@ MonoBehaviour:
   leftHandIKTarget: {fileID: 383846943}
   rightHandDefaultPosition: {x: 0.117, y: -0.23, z: 0.15}
   rightHandAimPosition: {x: 0.0015, y: -0.09, z: 0.06}
+  gripHandler: {fileID: 0}
   sightHandler: {fileID: 0}
+  currentGrip: {fileID: 0}
 --- !u!1 &1916461594
 GameObject:
   m_ObjectHideFlags: 0
@@ -13216,6 +13220,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 716380772976867806, guid: 21f466a9a940024479c077d15d5ceba9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 933998205154036881, guid: 21f466a9a940024479c077d15d5ceba9,
         type: 3}
       propertyPath: m_Enabled
@@ -13256,6 +13265,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3957268486299437007, guid: 21f466a9a940024479c077d15d5ceba9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957268486299437007, guid: 21f466a9a940024479c077d15d5ceba9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957268486299437007, guid: 21f466a9a940024479c077d15d5ceba9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.24
+      objectReference: {fileID: 0}
     - target: {fileID: 4179771108594360344, guid: 21f466a9a940024479c077d15d5ceba9,
         type: 3}
       propertyPath: m_Name
@@ -13264,7 +13288,7 @@ PrefabInstance:
     - target: {fileID: 4179771108594360344, guid: 21f466a9a940024479c077d15d5ceba9,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4180779300705137655, guid: 21f466a9a940024479c077d15d5ceba9,
         type: 3}
@@ -13584,6 +13608,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Revolver
+      objectReference: {fileID: 0}
+    - target: {fileID: 5731489904561212827, guid: ed2cd9edbcbfd3e46b20967af57935f4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5753453752204711491, guid: ed2cd9edbcbfd3e46b20967af57935f4,
         type: 3}

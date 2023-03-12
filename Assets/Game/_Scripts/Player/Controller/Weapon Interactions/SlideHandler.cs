@@ -129,6 +129,7 @@ public class SlideHandler : MonoBehaviour
     {
         bipedIK.enabled = false;
         fullBodyBipedIK.enabled = false;
+        StartCoroutine(SetLayer_Routine(1,0,0.2f, 7,0));
 
         float time = 0;
         float maxTime = 1;
@@ -144,6 +145,8 @@ public class SlideHandler : MonoBehaviour
     
     public IEnumerator SlideUpWeapon_RoutineLast()
     {
+        StartCoroutine(SetLayer_Routine(0,1,0.2f, 7,0.8f));
+        
         float time = 0;
         float maxTime = 1;
         while (time < maxTime)
@@ -154,9 +157,21 @@ public class SlideHandler : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-     
+   
         bipedIK.enabled = true;
         fullBodyBipedIK.enabled = true;
+    }
+
+    public IEnumerator SetLayer_Routine(float startValue, float targetValue, float targetTime, int layerIndex, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        float time = 0;
+        while (time < targetTime)
+        {
+            animator.SetLayerWeight(layerIndex,Mathf.Lerp(startValue,targetValue, time/ targetTime));
+            time += Time.deltaTime;
+            yield return null;
+        }
     }
 
 }

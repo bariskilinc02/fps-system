@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: grip1
+  m_Controller: {fileID: 9100000, guid: 3290e287f0bf729478d380680585a183, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 53f3e97201c94ab49854350c9fc3d096, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 988f5ef496c68d94c8f5fbf0fad83e64, type: 2}

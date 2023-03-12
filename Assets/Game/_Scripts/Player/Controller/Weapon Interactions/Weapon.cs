@@ -12,20 +12,28 @@ public class Weapon : MonoBehaviour
     public Vector3 rightHandDefaultPosition;
     public Vector3 rightHandAimPosition;
 
+    [HideInInspector] public GripHandler gripHandler;
     [HideInInspector] public SightHandler sightHandler;
 
+    public GripPart currentGrip;
     private void OnEnable()
     {
    
     }
-
+    
     public void BuildWeapon()
     {
         weaponGameObject = gameObject;
         leftHandIKTarget = weaponGameObject.FindChildWithName("LeftHandTarget");
         
+        gripHandler = GetComponentInChildren<GripHandler>();
+        gripHandler.GetAllGripParts();
+        currentGrip = gripHandler.GetCurrentGripPart();
+        leftHandIKTarget = currentGrip.leftHandTarget.gameObject;
+        
         sightHandler = GetComponentInChildren<SightHandler>();
         sightHandler.SetSightPart();
+        
         rightHandAimPosition = rightHandAimPosition.With(y: sightHandler.GetAimPositionX());
     }
     
