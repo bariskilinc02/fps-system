@@ -20,6 +20,7 @@ public class PlayerManager : Singleton<PlayerManager>
     [Header("IK")]
     public FullBodyBipedIK fullBodyBipedIK;
     public BipedIK bipedIK;
+    public AimIK aimIK;
 
     private void Start()
     {
@@ -46,6 +47,12 @@ public class PlayerManager : Singleton<PlayerManager>
     public void ChangeWeaponSightPart(int i)
     {
         weaponHandler.currentWeapon.sightHandler.CustomizeSightPart(i);
+        weaponHandler.SetWeapon(weaponHandler.currentWeapon.weaponId);
+    }
+    
+    public void ChangeWeaponMuzzlePart(int i)
+    {
+        weaponHandler.currentWeapon.muzzleHandler.CustomizeMuzzlePart(i);
         weaponHandler.SetWeapon(weaponHandler.currentWeapon.weaponId);
     }
 }

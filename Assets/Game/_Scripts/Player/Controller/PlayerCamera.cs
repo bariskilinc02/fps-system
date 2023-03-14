@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    [SerializeField] private Camera characterCamera;
+    [SerializeField] public Camera characterCamera;
     [SerializeField] private GameObject character;
     [SerializeField] private GameObject characterHead;
     [SerializeField] private GameObject aimIkPoleTarget;

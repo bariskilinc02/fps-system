@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using RootMotion.FinalIK;
 using UnityEngine;
 
@@ -12,9 +13,13 @@ public class ReloadHandler : MonoBehaviour
      private FullBodyBipedIK fullBodyBipedIK;
      private BipedIK bipedIK;
     private WeaponHandler weaponHandler;
-    
+    private AimIK aimIK;
+
     [SerializeField] private AnimatorOverrideController overrideController;
-   
+
+
+    public Transform aimTransform;
+    public Transform handTransform;
 
     private void Awake()
     {
@@ -22,6 +27,7 @@ public class ReloadHandler : MonoBehaviour
         fullBodyBipedIK = playerManager.fullBodyBipedIK;
         bipedIK = playerManager.bipedIK;
         weaponHandler = playerManager.weaponHandler;
+        aimIK = playerManager.aimIK;
     }
 
     public void Update()
@@ -39,16 +45,21 @@ public class ReloadHandler : MonoBehaviour
 
     private IEnumerator ReloadHandle_Routine()
     {
-        StartCoroutine(IKConfig_Routine(1,0));
-        animator.runtimeAnimatorController = overrideController;
-        animator.SetBool("Reload", true);
+        weaponHandler.onAim = false;
+        float duration = weaponHandler.currentWeapon.weaponOverrider.animationClips[3].length;
 
-        yield return new WaitForSeconds(3.5f);
+        animator.runtimeAnimatorController = weaponHandler.currentWeapon.weaponOverrider;
+        animator.runtimeAnimatorController = weaponHandler.currentWeapon.currentGrip.gridOverrider;
+        StartCoroutine(IKConfig_Routine(1,0));
+        animator.SetBool("Reload", true);
+        
+        yield return new WaitForSeconds(duration - 1);
         
         animator.SetBool("Reload", false);
+        yield return new WaitForSeconds(0.8f);
+      
         StartCoroutine(IKConfig_Routine(0,1));
-        Debug.Log(overrideController.animationClips.Length);
-        animator.runtimeAnimatorController = weaponHandler.currentWeapon.currentGrip.gridOverrider;
+       
     }
     
     private IEnumerator IKConfig_Routine(float startValue, float targetValue)
@@ -57,7 +68,7 @@ public class ReloadHandler : MonoBehaviour
         bipedIK.solvers.rightHand.IKPositionWeight = startValue;
         animator.SetLayerWeight(7, startValue);
         float time = 0;
-        float maxTime = 0.2f;
+        float maxTime = 0.25f;
         while(time < maxTime){
     
             fullBodyBipedIK.solver.leftHandEffector.positionWeight = Mathf.Lerp(startValue,targetValue, time/maxTime);

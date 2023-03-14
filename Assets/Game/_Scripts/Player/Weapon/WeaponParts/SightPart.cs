@@ -30,7 +30,15 @@ public class SightPart : MonoBehaviour
     {
         if (OnCalculate)
         {
+            //var forward = Vector3.forward;
+            //var angle = Vector3.Angle(GameManager.Instance.RightHandTarget.forward, forward);
+            //Debug.Log(angle);
             aimPosition = GameManager.Instance.RightHandTarget.position - calculatorTransform.position;
+            Debug.Log( aimPosition.magnitude);
+                
+            //Vector3 rotatedAimVector = Quaternion.AngleAxis(45, Vector3.forward) * aimPosition;
+            // Debug.Log(rotatedAimVector);
+            //aimPosition = rotatedAimVector;
         }
         
     }

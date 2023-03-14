@@ -7,8 +7,11 @@ using UnityEngine.UI;
 public class WeaponCustomizationUI : MonoBehaviour
 {
     public GameObject weaponCustomizationPage;
+    
     public GameObject gridListPage;
     public GameObject sightListPage;
+    public GameObject muzzleListPage;
+    
     public Button openPanelButton;
     public Button closePanelButton;
     
@@ -17,18 +20,23 @@ public class WeaponCustomizationUI : MonoBehaviour
 
     public Transform gripContent;
     public Transform sightContent;
+    public Transform muzzleContent;
+    
     public GameObject gripButtonPrefab;
     public GameObject sightButtonPrefab;
+    public GameObject muzzleButtonPrefab;
     
     public Weapon currentWeapon;
 
     public Button gripListButton;
     public Button sightListButton;
-
+    public Button muzzleListButton;
+    
     private void Awake()
     {
         gripListButton.onClick.AddListener(OpenGripList);
         sightListButton.onClick.AddListener(OpenSightList);
+        muzzleListButton.onClick.AddListener(OpenMuzzleList);
         
         openPanelButton.onClick.AddListener(OpenCustomizationPage);
         closePanelButton.onClick.AddListener(CloseCustomizationPage);
@@ -78,22 +86,52 @@ public class WeaponCustomizationUI : MonoBehaviour
         }
     }
     
+    private void ListWeaponMuzzleComponents()
+    {
+        for (int i = muzzleContent.childCount - 1; i >= 0 ; i--)
+        {
+            Destroy(muzzleContent.GetChild(i).gameObject);
+        }
+        
+        currentWeapon = weaponHandler.currentWeapon;
+
+        List<MuzzlePart> muzzleParts = currentWeapon.muzzleHandler.muzzleParts;
+        for (int i = 0; i < muzzleParts.Count; i++)
+        {
+            ComponentButton componentButton = Instantiate(muzzleButtonPrefab, muzzleContent).GetComponent<ComponentButton>();
+            componentButton.index = i;
+        }
+    }
+
+    
     public void OpenGripList()
     {
         gridListPage.SetActive(true);
         sightListPage.SetActive(false);
+        muzzleListPage.SetActive(false);
     }
     public void OpenSightList()
     {
         gridListPage.SetActive(false);
         sightListPage.SetActive(true);
+        muzzleListPage.SetActive(false);
+    }
+    
+    public void OpenMuzzleList()
+    {
+        gridListPage.SetActive(false);
+        sightListPage.SetActive(false);
+        muzzleListPage.SetActive(true);
     }
 
     public void OpenCustomizationPage()
     {
         weaponCustomizationPage.SetActive(true);
+        
         ListWeaponGripComponents();
         ListWeaponSightComponents();
+        ListWeaponMuzzleComponents();
+        
         PlayerManager.Instance.playerProperties.OnUI = true;
         PlayerManager.Instance.playerProperties.CursorLockState = false;
     }

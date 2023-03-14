@@ -14,12 +14,14 @@ public class Weapon : MonoBehaviour
 
     [HideInInspector] public GripHandler gripHandler;
     [HideInInspector] public SightHandler sightHandler;
+    [HideInInspector] public MuzzleHandler muzzleHandler;
 
+    
     public GripPart currentGrip;
-    private void OnEnable()
-    {
-   
-    }
+    public SightPart currentSight;
+    public MuzzlePart currentMuzzle;
+    
+    public AnimatorOverrideController weaponOverrider;
     
     public void BuildWeapon()
     {
@@ -34,6 +36,11 @@ public class Weapon : MonoBehaviour
         sightHandler = GetComponentInChildren<SightHandler>();
         sightHandler.GetAllSightParts();
         sightHandler.SetSightPart();
+        currentSight = sightHandler.GetCurrentSigthPart();
+        
+        muzzleHandler = GetComponentInChildren<MuzzleHandler>();
+        muzzleHandler.GetAllMuzzleParts();
+        currentMuzzle = muzzleHandler.GetCurrentMuzzlePart();
         
         rightHandAimPosition = rightHandAimPosition.With(y: sightHandler.GetAimPositionX());
     }

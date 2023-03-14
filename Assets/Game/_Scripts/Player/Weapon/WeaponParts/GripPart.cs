@@ -25,4 +25,9 @@ public class GripPart : MonoBehaviour
     {
         animator.runtimeAnimatorController = gridOverrider;
     }
+
+    public AnimatorOverrideController GetOverrider()
+    {
+        return gridOverrider;
+    }
 }

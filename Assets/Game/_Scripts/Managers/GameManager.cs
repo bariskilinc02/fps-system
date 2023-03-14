@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-
+    
     public Transform RightHandTarget;
     private void Awake()
     {

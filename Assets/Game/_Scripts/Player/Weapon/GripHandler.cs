@@ -11,7 +11,6 @@ public class GripHandler : MonoBehaviour
     private void Awake()
     {
         GetAllGripParts();
-
     }
 
     public void GetAllGripParts()

@@ -243,7 +243,7 @@ namespace Game._Scripts.Player.Controller
             weaponSmoothTurnHorizontalValue += playerCamera.verticalAxis;
             weaponSmoothTurnHorizontalValue = Mathf.Lerp(weaponSmoothTurnHorizontalValue, 0, 15 *Time.deltaTime);
             
-            float horizontalSwing = currentCurveData.HorizontalCurve.Evaluate(weaponSwingTimer) * currentCurveData.HorizontalDistance + recoilHandler.currentWeaponRecoil.x - weaponSmoothTurnHorizontalValue ;
+            float horizontalSwing = currentCurveData.HorizontalCurve.Evaluate(weaponSwingTimer) * currentCurveData.HorizontalDistance + recoilHandler.currentWeaponRecoil.x - weaponSmoothTurnHorizontalValue - horizontalInput * 7;
             float verticalSwing = currentCurveData.VerticalCurve.Evaluate(weaponSwingTimer) * currentCurveData.VerticalDistance + recoilHandler.currentWeaponRecoil.y - weaponSmoothTurnVerticalValue;
             Vector3 targetPosition = new Vector3(horizontalSwing,verticalSwing,120);
             weaponTargetTransform.localPosition = Vector3.Lerp(  weaponTargetTransform.localPosition,targetPosition,10 * Time.deltaTime);

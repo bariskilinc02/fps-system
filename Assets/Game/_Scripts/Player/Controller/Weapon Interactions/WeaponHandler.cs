@@ -13,6 +13,7 @@ public class WeaponHandler : MonoBehaviour
     private Animator animator;
     private SlideHandler slideHandler;
     private RecoilHandler RecoilHandler;
+    private Camera playerCamera;
     
     [SerializeField] private Transform rightHandIKTarget;
     
@@ -20,7 +21,7 @@ public class WeaponHandler : MonoBehaviour
 
     public bool onAim;
     public bool onSlide;
-    public float aimValue;
+    public float adsTime;
     
     public Weapon currentWeapon;
 
@@ -28,7 +29,7 @@ public class WeaponHandler : MonoBehaviour
     
     public float fireTime;
 
-   
+
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class WeaponHandler : MonoBehaviour
         animator = playerManager.animator;
         RecoilHandler = playerManager.recoilHandler;
         slideHandler = playerManager.slideHandler;
+        playerCamera = playerManager.playerCamera.characterCamera;
     }
 
     private void Start()
@@ -87,6 +89,7 @@ public class WeaponHandler : MonoBehaviour
     {
         currentWeapon = weapons.allWeapons.Find(x => x.weaponId == weaponId);
         currentWeapon.BuildWeapon();
+        animator.runtimeAnimatorController = currentWeapon.weaponOverrider;
         animator.runtimeAnimatorController = currentWeapon.currentGrip.gridOverrider;
         weapons.ActivateWeaponWithId(weaponId);
         SetLeftHandIKTarget(weaponId);
@@ -102,18 +105,20 @@ public class WeaponHandler : MonoBehaviour
         if (onAim)
         {
             //aimValue += 1 * Time.deltaTime;
-            aimValue = Mathf.Lerp(aimValue, 1, 10 * Time.deltaTime);
+            adsTime = Mathf.Lerp(adsTime, 1, 10 * Time.deltaTime);
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, 70, 10 * Time.deltaTime);
         }
         else
         {
             //aimValue -= 1 * Time.deltaTime;
-            aimValue = Mathf.Lerp(aimValue, 0, 10 * Time.deltaTime);
+            adsTime = Mathf.Lerp(adsTime, 0, 10 * Time.deltaTime);
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, 90, 10 * Time.deltaTime);
         }
 
-        aimValue = Mathf.Clamp(aimValue, 0, 1);
+        adsTime = Mathf.Clamp(adsTime, 0, 1);
 
         rightHandIKTarget.localPosition = Vector3.Lerp(currentWeapon.rightHandDefaultPosition,
-            currentWeapon.rightHandAimPosition, aimValue);
+            currentWeapon.rightHandAimPosition, adsTime);
     }
 
     private void AimController()
