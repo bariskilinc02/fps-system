@@ -4,15 +4,43 @@ using UnityEngine;
 
 public class BarrelPart : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GripHandler currentGripHandler;
+    public MuzzleHandler currentMuzzleHandler;
+    public GripHandler ReturnActiveGripHandler()
     {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+            {
+                if (transform.GetChild(i).GetComponent<GripHandler>() != null)
+                {
+                    currentGripHandler = transform.GetChild(i).GetComponent<GripHandler>();
+                    break;
+                }
+            }
+        
+        }
+        
+        return currentGripHandler;
         
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public MuzzleHandler ReturnActiveMuzzleHandler()
     {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+            {
+                if (transform.GetChild(i).GetComponent<MuzzleHandler>() != null)
+                {
+                    currentMuzzleHandler = transform.GetChild(i).GetComponent<MuzzleHandler>();
+                    break;
+                }
+            }
+        
+        }
+        
+        return currentMuzzleHandler;
         
     }
 }

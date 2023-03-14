@@ -18,7 +18,7 @@ public class PartHandler : MonoBehaviour
         parts.Clear();
         for (int i = 0; i < transform.childCount; i++)
         {
-            parts.Add(transform.GetChild(i).GetComponent<T>());
+            parts.Add(transform.GetChild(i).GetComponent<PartBase>());
         }
 
     }

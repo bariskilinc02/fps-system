@@ -12,11 +12,12 @@ public class Weapon : MonoBehaviour
     public Vector3 rightHandDefaultPosition;
     public Vector3 rightHandAimPosition;
 
+    [HideInInspector] public BarrelHandler barrelHandler;
     [HideInInspector] public GripHandler gripHandler;
     [HideInInspector] public SightHandler sightHandler;
     [HideInInspector] public MuzzleHandler muzzleHandler;
 
-    
+    public BarrelPart currentBarrel;
     public GripPart currentGrip;
     public SightPart currentSight;
     public MuzzlePart currentMuzzle;
@@ -27,20 +28,31 @@ public class Weapon : MonoBehaviour
     {
         weaponGameObject = gameObject;
         leftHandIKTarget = weaponGameObject.FindChildWithName("LeftHandTarget");
-        
-        gripHandler = GetComponentInChildren<GripHandler>();
+
+        barrelHandler =  GetComponentInChildren<BarrelHandler>();
+        barrelHandler.GetAllBarrelParts();
+        currentBarrel = barrelHandler.GetActiveBarrelPart();
+
+        gripHandler = currentBarrel.ReturnActiveGripHandler();
         gripHandler.GetAllGripParts();
         currentGrip = gripHandler.GetCurrentGripPart();
         leftHandIKTarget = currentGrip.leftHandTarget.gameObject;
+        //gripHandler = GetComponentInChildren<GripHandler>();
+        //gripHandler.GetAllGripParts();
+        //currentGrip = gripHandler.GetCurrentGripPart();
+        //leftHandIKTarget = currentGrip.leftHandTarget.gameObject;
         
         sightHandler = GetComponentInChildren<SightHandler>();
         sightHandler.GetAllSightParts();
         sightHandler.SetSightPart();
         currentSight = sightHandler.GetCurrentSigthPart();
         
-        muzzleHandler = GetComponentInChildren<MuzzleHandler>();
+        muzzleHandler = currentBarrel.ReturnActiveMuzzleHandler();
         muzzleHandler.GetAllMuzzleParts();
         currentMuzzle = muzzleHandler.GetCurrentMuzzlePart();
+        //muzzleHandler = GetComponentInChildren<MuzzleHandler>();
+        //muzzleHandler.GetAllMuzzleParts();
+        //currentMuzzle = muzzleHandler.GetCurrentMuzzlePart();
         
         rightHandAimPosition = rightHandAimPosition.With(y: sightHandler.GetAimPositionX());
     }
