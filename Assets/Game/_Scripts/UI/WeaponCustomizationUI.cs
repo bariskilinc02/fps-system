@@ -8,6 +8,7 @@ public class WeaponCustomizationUI : MonoBehaviour
 {
     public GameObject weaponCustomizationPage;
     
+    public GameObject weaponListPage;
     public GameObject gridListPage;
     public GameObject sightListPage;
     public GameObject muzzleListPage;
@@ -18,16 +19,19 @@ public class WeaponCustomizationUI : MonoBehaviour
     public Weapons weapons;
     public WeaponHandler weaponHandler;
 
+    public Transform weaponContent;
     public Transform gripContent;
     public Transform sightContent;
     public Transform muzzleContent;
     
+    public GameObject weaponButtonPrefab;
     public GameObject gripButtonPrefab;
     public GameObject sightButtonPrefab;
     public GameObject muzzleButtonPrefab;
     
     public Weapon currentWeapon;
 
+    public Button weaponListButton;
     public Button gripListButton;
     public Button sightListButton;
     public Button muzzleListButton;
@@ -37,6 +41,7 @@ public class WeaponCustomizationUI : MonoBehaviour
         gripListButton.onClick.AddListener(OpenGripList);
         sightListButton.onClick.AddListener(OpenSightList);
         muzzleListButton.onClick.AddListener(OpenMuzzleList);
+        weaponListButton.onClick.AddListener(OpenWeaponList);
         
         openPanelButton.onClick.AddListener(OpenCustomizationPage);
         closePanelButton.onClick.AddListener(CloseCustomizationPage);
@@ -52,6 +57,24 @@ public class WeaponCustomizationUI : MonoBehaviour
         }
     }
 
+    private void ListWeaponComponents()
+    {
+        for (int i = weaponContent.childCount - 1; i >= 0 ; i--)
+        {
+            Destroy(weaponContent.GetChild(i).gameObject);
+        }
+        
+        //currentWeapon = weaponHandler.currentWeapon;
+
+        List<Weapon> weaponsList = weapons.allWeapons;
+        weaponsList.Count.debug();
+        for (int i = 0; i < weaponsList.Count; i++)
+        {
+            ComponentButton componentButton = Instantiate(weaponButtonPrefab, weaponContent).GetComponent<ComponentButton>();
+            componentButton.index = i;
+        }
+    }
+    
     private void ListWeaponGripComponents()
     {
         for (int i = gripContent.childCount - 1; i >= 0 ; i--)
@@ -68,6 +91,8 @@ public class WeaponCustomizationUI : MonoBehaviour
             componentButton.index = i;
         }
     }
+    
+    
     
     private void ListWeaponSightComponents()
     {
@@ -109,12 +134,14 @@ public class WeaponCustomizationUI : MonoBehaviour
         gridListPage.SetActive(true);
         sightListPage.SetActive(false);
         muzzleListPage.SetActive(false);
+        weaponListPage.SetActive(false);
     }
     public void OpenSightList()
     {
         gridListPage.SetActive(false);
         sightListPage.SetActive(true);
         muzzleListPage.SetActive(false);
+        weaponListPage.SetActive(false);
     }
     
     public void OpenMuzzleList()
@@ -122,6 +149,16 @@ public class WeaponCustomizationUI : MonoBehaviour
         gridListPage.SetActive(false);
         sightListPage.SetActive(false);
         muzzleListPage.SetActive(true);
+        weaponListPage.SetActive(false);
+    }
+    
+    public void OpenWeaponList()
+    {
+        gridListPage.SetActive(false);
+        sightListPage.SetActive(false);
+        muzzleListPage.SetActive(false);
+        weaponListPage.SetActive(true);
+        ListWeaponComponents();
     }
 
     public void OpenCustomizationPage()
@@ -131,6 +168,7 @@ public class WeaponCustomizationUI : MonoBehaviour
         ListWeaponGripComponents();
         ListWeaponSightComponents();
         ListWeaponMuzzleComponents();
+        ListWeaponComponents();
         
         PlayerManager.Instance.playerProperties.OnUI = true;
         PlayerManager.Instance.playerProperties.CursorLockState = false;
