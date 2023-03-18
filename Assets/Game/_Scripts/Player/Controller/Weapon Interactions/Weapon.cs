@@ -37,11 +37,7 @@ public class Weapon : MonoBehaviour
         gripHandler.GetAllGripParts();
         currentGrip = gripHandler.GetCurrentGripPart();
         leftHandIKTarget = currentGrip.leftHandTarget.gameObject;
-        //gripHandler = GetComponentInChildren<GripHandler>();
-        //gripHandler.GetAllGripParts();
-        //currentGrip = gripHandler.GetCurrentGripPart();
-        //leftHandIKTarget = currentGrip.leftHandTarget.gameObject;
-        
+
         sightHandler = GetComponentInChildren<SightHandler>();
         sightHandler.GetAllSightParts();
         sightHandler.SetSightPart();
@@ -50,10 +46,7 @@ public class Weapon : MonoBehaviour
         muzzleHandler = currentBarrel.ReturnActiveMuzzleHandler();
         muzzleHandler.GetAllMuzzleParts();
         currentMuzzle = muzzleHandler.GetCurrentMuzzlePart();
-        //muzzleHandler = GetComponentInChildren<MuzzleHandler>();
-        //muzzleHandler.GetAllMuzzleParts();
-        //currentMuzzle = muzzleHandler.GetCurrentMuzzlePart();
-        
+
         rightHandAimPosition = rightHandAimPosition.With(y: sightHandler.GetAimPositionX());
     }
     

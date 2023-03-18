@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Game._Scripts.Player.Controller
 {
@@ -21,7 +22,7 @@ namespace Game._Scripts.Player.Controller
         private float currentMovementState;
         
         [SerializeField] protected Animator animator;
-        [SerializeField] protected Rigidbody rigidbody;
+        [SerializeField] protected Rigidbody characterRigidbody;
 
         public MovementState movementState;
         
@@ -59,6 +60,7 @@ namespace Game._Scripts.Player.Controller
         private float weaponSmoothTurnHorizontalValue;
         private float weaponSmoothTurnVerticalValue;
         private float rootAnimatorValue;
+        
         [Header("Recoil")] 
         [SerializeField] private RecoilHandler recoilHandler;
         private void Awake()
@@ -97,13 +99,13 @@ namespace Game._Scripts.Player.Controller
         
         private void Move()
         {
-            Transform rigidbodyTransform = rigidbody.transform;
+            Transform rigidbodyTransform = characterRigidbody.transform;
             
             Vector3 forward = rigidbodyTransform.forward;
             Vector3 right = rigidbodyTransform.right;
             
             Vector3 velocity = new Vector3();
-            velocity = velocity.With(y: rigidbody.velocity.y);
+            velocity = velocity.With(y: characterRigidbody.velocity.y);
 
             currentVerticalInput = Mathf.Lerp(currentVerticalInput, verticalInput, 10.0f * Time.deltaTime);
             currentHorizontalInput = Mathf.Lerp(currentHorizontalInput, horizontalInput, 10.0f * Time.deltaTime);
@@ -125,10 +127,10 @@ namespace Game._Scripts.Player.Controller
             float forwardBackwardValue = isCrouching ? currentSpeedMultiplier : finalInput.x < 0 ? walkSpeed : currentSpeedMultiplier;
             float leftRightValue = isCrouching ? currentSpeedMultiplier : finalInput.x > 0.3f ? currentSpeedMultiplier : walkSpeed;
             
-            velocity = forward * finalInput.x * forwardBackwardValue + right * finalInput.y * leftRightValue;
-            velocity = velocity.With(y: rigidbody.velocity.y);
+            velocity = forward * (finalInput.x * forwardBackwardValue) + right * (finalInput.y * leftRightValue);
+            velocity = velocity.With(y: characterRigidbody.velocity.y);
             
-            rigidbody.velocity = velocity;
+            characterRigidbody.velocity = velocity;
         }
 
         protected abstract void MovementInput();
@@ -137,7 +139,7 @@ namespace Game._Scripts.Player.Controller
         {
             if (currentHorizontalInput.Abs() + currentVerticalInput.Abs() > 0)
             {
-                if (rigidbody.velocity.magnitude > 2.1f)
+                if (characterRigidbody.velocity.magnitude > 2.1f)
                 {
                     movementState = MovementState.Running;
                 }
@@ -243,7 +245,7 @@ namespace Game._Scripts.Player.Controller
             weaponSmoothTurnHorizontalValue += playerCamera.verticalAxis;
             weaponSmoothTurnHorizontalValue = Mathf.Lerp(weaponSmoothTurnHorizontalValue, 0, 15 *Time.deltaTime);
             
-            float horizontalSwing = currentCurveData.HorizontalCurve.Evaluate(weaponSwingTimer) * currentCurveData.HorizontalDistance + recoilHandler.currentWeaponRecoil.x - weaponSmoothTurnHorizontalValue - horizontalInput * 7;
+            float horizontalSwing = currentCurveData.HorizontalCurve.Evaluate(weaponSwingTimer) * currentCurveData.HorizontalDistance + recoilHandler.currentWeaponRecoil.x - weaponSmoothTurnHorizontalValue * 1.5f - horizontalInput * 10;
             float verticalSwing = currentCurveData.VerticalCurve.Evaluate(weaponSwingTimer) * currentCurveData.VerticalDistance + recoilHandler.currentWeaponRecoil.y - weaponSmoothTurnVerticalValue;
             Vector3 targetPosition = new Vector3(horizontalSwing,verticalSwing,120);
             weaponTargetTransform.localPosition = Vector3.Lerp(  weaponTargetTransform.localPosition,targetPosition,10 * Time.deltaTime);
@@ -302,7 +304,7 @@ namespace Game._Scripts.Player.Controller
 
         private void Animate()
         {
-            float speed = rigidbody.velocity.magnitude;
+            float speed = characterRigidbody.velocity.magnitude;
             
             if (isCrouching)
             {

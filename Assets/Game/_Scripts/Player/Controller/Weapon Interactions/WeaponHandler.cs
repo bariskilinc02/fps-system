@@ -24,8 +24,6 @@ public class WeaponHandler : MonoBehaviour
     public float adsTime;
     
     public Weapon currentWeapon;
-
-    public bool active;
     
     public float fireTime;
 
@@ -48,13 +46,6 @@ public class WeaponHandler : MonoBehaviour
 
     private void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SetGrip(currentWeapon.weaponId);
-        }
-        //Debug.Log(weapons.transform.eulerAngles);
-    
         if (Input.GetKeyDown(KeyCode.Q))
         {
             ChangeWeapon(testId);
@@ -84,19 +75,7 @@ public class WeaponHandler : MonoBehaviour
     {
         fullBodyBipedIK.solver.leftHandEffector.target = weapons.allWeapons.Find(x => x.weaponId == weaponId).currentGrip.leftHandTarget;
     }
-
-    public void SetWeapon(string weaponId)
-    {
-        currentWeapon = weapons.allWeapons.Find(x => x.weaponId == weaponId);
-        currentWeapon.BuildWeapon();
-        animator.runtimeAnimatorController = currentWeapon.weaponOverrider;
-        animator.runtimeAnimatorController = currentWeapon.currentGrip.gridOverrider;
-        weapons.ActivateWeaponWithId(weaponId);
-        SetLeftHandIKTarget(weaponId);
-
-
-    }
-
+    
     private void Aim()
     {
         if(currentWeapon == null) return;
@@ -167,11 +146,15 @@ public class WeaponHandler : MonoBehaviour
         yield return slideHandler.SlideUpWeapon_RoutineLast();
         onSlide = false;
     }
-
-    public void SetGrip(string weapon)
-    {
-        SetWeapon(weapon);
-        currentWeapon.BuildWeapon();
-    }
     
+    public void SetWeapon(string weaponId)
+    {
+        currentWeapon = weapons.allWeapons.Find(x => x.weaponId == weaponId);
+        currentWeapon.BuildWeapon();
+        animator.runtimeAnimatorController = currentWeapon.weaponOverrider;
+        animator.runtimeAnimatorController = currentWeapon.currentGrip.gridOverrider;
+        weapons.ActivateWeaponWithId(weaponId);
+        SetLeftHandIKTarget(weaponId);
+    }
+
 }

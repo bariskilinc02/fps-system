@@ -68,9 +68,9 @@ namespace RootMotion.Demos {
 			// Direct blending
 			foreach (AimPoser.Pose pose in aimPoser.poses) {
 				if (pose == aimPose) {
-					DirectCrossFade(pose.name, 1f);
+					//DirectCrossFade(pose.name, 1f);
 				} else {
-					DirectCrossFade(pose.name, 0f);
+					//DirectCrossFade(pose.name, 0f);
 				}
 			}
 		}

@@ -31,7 +31,6 @@ public class PlayerCamera : MonoBehaviour
     {
         if (PlayerManager.Instance.playerProperties.OnUI) return;
         CameraControl();
-        //Placements();
     }
 
     private void LateUpdate()

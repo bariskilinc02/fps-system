@@ -33,26 +33,6 @@ public class SlideHandler : MonoBehaviour
     public AimIK aimIK;
     public FullBodyBipedIK fullBodyBipedIK;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            StartCoroutine(SlideDownWeapon_RoutineLast());
-        }
-     
-    }
-
-    public void SlideDownWeapon()
-    {
-        StartCoroutine(SlideDownWeapon_RoutineTrial());
-        
-    }
-    
-    public void SlideUpWeapon()
-    {
-        StartCoroutine(SlideUpWeapon_Routine());
-    }
-    
     public void SlideDownWeaponLateUpdate()
     {
         if (isSliding)

@@ -6,25 +6,20 @@ using UnityEngine;
 public class Weapons : MonoBehaviour
 {
     public List<Weapon> allWeapons;
-
-    public GameObject CrossCube;
+    
     public GameObject RightHandTarget;
 
     private void Awake()
     {
+        InitWeapons();
+    }
+
+    public void InitWeapons()
+    {
         allWeapons.Clear();
         foreach (Transform childWeaponGameObject in transform)
         {
-           
             allWeapons.Add(childWeaponGameObject.GetComponent<Weapon>());
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            CalculateHandAimPosition();
         }
     }
 
@@ -36,10 +31,13 @@ public class Weapons : MonoBehaviour
             weapon.gameObject.SetActive(status);
         }
     }
-
-    private void CalculateHandAimPosition()
+    
+    public void ActivateWeaponWithWeaponReference(Weapon weapon)
     {
-        Vector3 newVector = RightHandTarget.transform.position - CrossCube.transform.position;
-        Debug.Log(newVector.y);
+        foreach (Weapon currentWeapon in allWeapons)
+        {
+            bool status = weapon.weaponId == currentWeapon.weaponId;
+            weapon.gameObject.SetActive(status);
+        }
     }
 }
