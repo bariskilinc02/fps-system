@@ -31,7 +31,8 @@ public class RecoilHandler : MonoBehaviour
 
     public void Recoil()
     {
-        currentWeaponRecoil += new Vector2(Random.Range(-horizontalRecoil, horizontalRecoil), verticalRecoil);
+       // currentWeaponRecoil += new Vector2(Random.Range(-horizontalRecoil, horizontalRecoil), verticalRecoil);
+       currentWeaponRecoil += new Vector2(Random.Range(-horizontalRecoil, horizontalRecoil), Random.Range(verticalRecoil - 4, verticalRecoil + 4));
         StartCoroutine(CameraRecoilRoutine());
         //currentCameraRecoil += new Vector2(horizontalCameraRecoil,  verticalCameraRecoil );
     }

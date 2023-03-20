@@ -85,13 +85,13 @@ public class WeaponHandler : MonoBehaviour
         {
             //aimValue += 1 * Time.deltaTime;
             adsTime = Mathf.Lerp(adsTime, 1, 10 * Time.deltaTime);
-            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, 70, 10 * Time.deltaTime);
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, 60, 10 * Time.deltaTime);
         }
         else
         {
             //aimValue -= 1 * Time.deltaTime;
             adsTime = Mathf.Lerp(adsTime, 0, 10 * Time.deltaTime);
-            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, 90, 10 * Time.deltaTime);
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, 80, 10 * Time.deltaTime);
         }
 
         adsTime = Mathf.Clamp(adsTime, 0, 1);
