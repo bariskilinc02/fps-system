@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Plugins/ThumbCreator/Demo/Scenes/ThumbCreator.unity
-    guid: be9bd4642ece9bb4eade65c8e2afe431
-  - enabled: 1
     path: Assets/Game/Scenes/Trial_FPS_Character.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 0
+    path: Assets/Plugins/ThumbCreator/Demo/Scenes/ThumbCreator.unity
+    guid: be9bd4642ece9bb4eade65c8e2afe431
   m_configObjects: {}

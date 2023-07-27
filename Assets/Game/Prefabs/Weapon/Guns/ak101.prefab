@@ -269,7 +269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &352461435893317606
 Transform:
   m_ObjectHideFlags: 0
@@ -427,7 +427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3839441314745336582
 Transform:
   m_ObjectHideFlags: 0
@@ -1016,7 +1016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4531800643587588555
 Transform:
   m_ObjectHideFlags: 0
@@ -2320,7 +2320,12 @@ PrefabInstance:
     - target: {fileID: -4581238365374665035, guid: 102c0991da23e1e4181ea5e3694aa8ce,
         type: 3}
       propertyPath: aimPosition.y
-      value: -0.1903512
+      value: -0.16636872
+      objectReference: {fileID: 0}
+    - target: {fileID: -4581238365374665035, guid: 102c0991da23e1e4181ea5e3694aa8ce,
+        type: 3}
+      propertyPath: aimPosition.z
+      value: -0.18868256
       objectReference: {fileID: 0}
     - target: {fileID: 1242899488601990, guid: 102c0991da23e1e4181ea5e3694aa8ce, type: 3}
       propertyPath: m_Name
@@ -2596,7 +2601,12 @@ PrefabInstance:
     - target: {fileID: 7003878637172352290, guid: 77433a509952f5947a4efec87b84550e,
         type: 3}
       propertyPath: aimPosition.y
-      value: -0.1788547
+      value: -0.14214969
+      objectReference: {fileID: 0}
+    - target: {fileID: 7003878637172352290, guid: 77433a509952f5947a4efec87b84550e,
+        type: 3}
+      propertyPath: aimPosition.z
+      value: -0.16392517
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77433a509952f5947a4efec87b84550e, type: 3}
@@ -2810,7 +2820,12 @@ PrefabInstance:
     - target: {fileID: -8691905990496517513, guid: 73817da27952e9144850baf83816c36a,
         type: 3}
       propertyPath: aimPosition.y
-      value: -0.1988659
+      value: -0.1769185
+      objectReference: {fileID: 0}
+    - target: {fileID: -8691905990496517513, guid: 73817da27952e9144850baf83816c36a,
+        type: 3}
+      propertyPath: aimPosition.z
+      value: 0.009113312
       objectReference: {fileID: 0}
     - target: {fileID: 1601405959989486, guid: 73817da27952e9144850baf83816c36a, type: 3}
       propertyPath: m_Name
@@ -3028,7 +3043,12 @@ PrefabInstance:
     - target: {fileID: -1357848154979967590, guid: a5f96ee709aa47e46a17edd0955c756e,
         type: 3}
       propertyPath: aimPosition.y
-      value: -0.1873226
+      value: -0.16986144
+      objectReference: {fileID: 0}
+    - target: {fileID: -1357848154979967590, guid: a5f96ee709aa47e46a17edd0955c756e,
+        type: 3}
+      propertyPath: aimPosition.z
+      value: -0.17243958
       objectReference: {fileID: 0}
     - target: {fileID: 1632117584443096, guid: a5f96ee709aa47e46a17edd0955c756e, type: 3}
       propertyPath: m_Name
@@ -3606,7 +3626,12 @@ PrefabInstance:
     - target: {fileID: 5276888634436060222, guid: 752d7599581b3004798189c5c0bc9731,
         type: 3}
       propertyPath: aimPosition.y
-      value: -0.183764
+      value: -0.16603959
+      objectReference: {fileID: 0}
+    - target: {fileID: 5276888634436060222, guid: 752d7599581b3004798189c5c0bc9731,
+        type: 3}
+      propertyPath: aimPosition.z
+      value: -0.16630173
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 752d7599581b3004798189c5c0bc9731, type: 3}

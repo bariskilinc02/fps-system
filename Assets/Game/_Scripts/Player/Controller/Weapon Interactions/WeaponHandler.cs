@@ -53,7 +53,7 @@ public class WeaponHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            ChangeWeapon("ak101");
+            ChangeWeapon("ak47");
         }
         
         AimController();

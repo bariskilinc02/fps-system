@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57fd03bcd2a8de6449b41a20dfca92eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sigthParts: []
 --- !u!1 &5731294269049465508
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +97,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5730821488923196999
 Transform:
   m_ObjectHideFlags: 0
@@ -104,7 +105,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5731489904561212827}
-  m_LocalRotation: {x: -0.5000001, y: 0.5, z: -0.49999988, w: 0.49999994}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -185,7 +186,15 @@ MonoBehaviour:
   leftHandIKTarget: {fileID: 5731294269049465508}
   rightHandDefaultPosition: {x: 0.117, y: -0.23, z: 0.15}
   rightHandAimPosition: {x: 0.001, y: -0.101, z: 0.36}
+  barrelHandler: {fileID: 0}
+  gripHandler: {fileID: 0}
   sightHandler: {fileID: 0}
+  muzzleHandler: {fileID: 0}
+  currentBarrel: {fileID: 0}
+  currentGrip: {fileID: 0}
+  currentSight: {fileID: 0}
+  currentMuzzle: {fileID: 0}
+  weaponOverrider: {fileID: 0}
 --- !u!1 &5731518447685389771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,7 +1047,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1893989616635660351
 Transform:
   m_ObjectHideFlags: 0
@@ -1067,8 +1076,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47fd79dbb8f94a54e9d0a31e9e6a5775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimPosition: {x: 0, y: 0, z: 0}
-  OnCalculate: 1
+  aimPosition: {x: 0, y: -0.101, z: 0}
+  OnCalculate: 0
 --- !u!1001 &6389460794016151732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1222,6 +1231,16 @@ PrefabInstance:
     - target: {fileID: 4572185276160144, guid: 752d7599581b3004798189c5c0bc9731, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5276888634436060222, guid: 752d7599581b3004798189c5c0bc9731,
+        type: 3}
+      propertyPath: OnCalculate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5276888634436060222, guid: 752d7599581b3004798189c5c0bc9731,
+        type: 3}
+      propertyPath: aimPosition.y
+      value: -0.138
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 752d7599581b3004798189c5c0bc9731, type: 3}
